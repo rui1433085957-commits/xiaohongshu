@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小红书爆款文案生成器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Xiaohongshu Copy Lab</p>
+        <h1>小红书爆款文案生成器</h1>
+        <p class="hero-text">
+          输入关键词，生成适合普通用户直接发布的小红书文案。支持多种风格、语气强度和发布场景，
+          输出包含标题、正文、标签，结果更像真实账号在发内容。
+        </p>
+        <div class="hero-badges">
+          <span>风格更多</span>
+          <span>语气可控</span>
+          <span>场景更细</span>
+          <span>直接复制</span>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="mini-card">
+          <span class="mini-label">今日灵感</span>
+          <strong id="heroStyleLabel">种草型文案</strong>
+          <p id="heroPreview">把“好用、好看、值得分享”的感觉，写成有人愿意停留和收藏的内容。</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="control-panel">
+        <div class="panel-head">
+          <h2>生成设置</h2>
+          <p>关键词越明确，补充信息越具体，生成内容越像真人发布。</p>
+        </div>
+
+        <label class="field">
+          <span>关键词</span>
+          <input id="keywordInput" type="text" placeholder="例如：平价粉底液、早八通勤穿搭、减脂早餐、考研英语">
+        </label>
+
+        <label class="field">
+          <span>补充信息</span>
+          <textarea id="extraInput" rows="4" placeholder="可选：补充人群、预算、场景、真实感受、价格区间、优缺点等"></textarea>
+        </label>
+
+        <div class="field">
+          <span>文案风格</span>
+          <div class="style-grid style-grid-wide" id="styleGrid">
+            <button class="style-card active" data-style="emotion" type="button">
+              <strong>情绪型</strong>
+              <small>更抓人，更有情绪张力</small>
+            </button>
+            <button class="style-card" data-style="knowledge" type="button">
+              <strong>干货型</strong>
+              <small>更清晰，更有方法感</small>
+            </button>
+            <button class="style-card" data-style="planting" type="button">
+              <strong>种草型</strong>
+              <small>更有分享欲，更容易收藏</small>
+            </button>
+            <button class="style-card" data-style="review" type="button">
+              <strong>测评型</strong>
+              <small>更像真实试用反馈</small>
+            </button>
+            <button class="style-card" data-style="checklist" type="button">
+              <strong>清单型</strong>
+              <small>更适合做收藏和抄作业</small>
+            </button>
+            <button class="style-card" data-style="relaxed" type="button">
+              <strong>松弛分享型</strong>
+              <small>更像自然聊天式推荐</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span>语气强度</span>
+          <div class="option-grid" id="toneGrid">
+            <button class="option-chip active" data-tone="soft" type="button">克制版</button>
+            <button class="option-chip" data-tone="standard" type="button">标准版</button>
+            <button class="option-chip" data-tone="strong" type="button">爆款版</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span>发布场景</span>
+          <div class="option-grid scenario-grid" id="sceneGrid">
+            <button class="option-chip active" data-scene="share" type="button">自用分享</button>
+            <button class="option-chip" data-scene="review" type="button">真实测评</button>
+            <button class="option-chip" data-scene="avoid" type="button">避坑建议</button>
+            <button class="option-chip" data-scene="list" type="button">清单推荐</button>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="generateBtn" class="primary-btn" type="button">生成文案</button>
+          <button id="shuffleBtn" class="ghost-btn" type="button">换一版内容</button>
+        </div>
+      </section>
+
+      <section class="result-panel">
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">Ready To Post</p>
+            <h2>生成结果</h2>
+            <p class="result-meta" id="resultMeta">风格：情绪型 · 语气：克制版 · 场景：自用分享</p>
+          </div>
+          <button id="copyAllBtn" class="ghost-btn" type="button">复制全部</button>
+        </div>
+
+        <article class="result-card">
+          <div class="result-label">标题</div>
+          <h3 id="titleOutput">输入关键词后，点击“生成文案”</h3>
+        </article>
+
+        <article class="result-card">
+          <div class="result-label">正文</div>
+          <pre id="bodyOutput">这里会输出适合直接发布的小红书正文内容。</pre>
+        </article>
+
+        <article class="result-card">
+          <div class="result-label">标签</div>
+          <p id="tagsOutput">#小红书文案 #爆款文案 #内容创作</p>
+        </article>
+
+        <div class="tips-card">
+          <strong>发布小提醒</strong>
+          <p id="tipsOutput">生成后建议再补一句你的真实细节，会更像真人分享。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
